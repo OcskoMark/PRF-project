@@ -1,0 +1,27 @@
+{
+  "name": "prf-project",
+  "version": "1.0.0",
+  "description": "PRF 2022 gyakorlat projektmunka (webshop).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OcskoMark/PRF-project.git"
+  },
+  "keywords": [
+    "kötprog",
+    "webshop",
+    "prf"
+  ],
+  "author": "Ocskó Márk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OcskoMark/PRF-project/issues"
+  },
+  "homepage": "https://github.com/OcskoMark/PRF-project#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
