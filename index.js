@@ -20,7 +20,7 @@ mongoose.connection.on('error', (err) => {
     console.log('Hiba történt.', err);
 })
 
-require('db.model');
+require('./db.model');
 
 /*
 app.get('/', (req, res) => {
