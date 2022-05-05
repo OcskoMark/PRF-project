@@ -1,4 +1,5 @@
 const express = require('express');
+const router = express.Router();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -28,7 +29,13 @@ mongoose.connection.on('error', (err) => {
     console.log('Hiba történt.', err);
 })
 
-//require('./db.model');
+mongoose.model('user', require('./user.model'));
+
+/*
+require('./user.models');
+require('./product.models');
+require('./order.models');
+*/
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -39,7 +46,6 @@ app.use(expressSession({secret: 'prf2022beadando', resave: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 */
-
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
