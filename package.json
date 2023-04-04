@@ -1,0 +1,23 @@
+{
+  "name": "prf-project",
+  "version": "1.0.0",
+  "description": "prf-project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OcskoMark/PRF-project.git"
+  },
+  "keywords": [
+    "prf",
+    "project"
+  ],
+  "author": "Ocskó Márk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OcskoMark/PRF-project/issues"
+  },
+  "homepage": "https://github.com/OcskoMark/PRF-project#readme"
+}
