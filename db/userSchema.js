@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     },
 });
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', async function(next) {
     const user = this;
     if(user.isModified('password')) {
         bcrypt.genSalt(20, function(err, salt) {
@@ -35,19 +35,78 @@ userSchema.pre('save', function(next) {
                 console.log("Hiba a salt generálása során.");
                 return next(error);
             }
-            bcrypt.hash(user.password, salt, function(error, hash) {
+            bcrypt.hash(self.password, salt, function(error, hash) {
                 if(error) {
                     console.log("Hiba a hashelés során.");
                     return next(error);
                 }
-                user.password = hash;
-                return next();
+                self.password = hash;
+                //return next();
             });
         });
     } else {
-        return next();
+        //return next();
     }
+
+    if(user.isModified('username')) {
+        try {
+            const dbUser = await mongoose.models["user"].findOne({username: user.username});
+            if (dbUser) {
+                user.invalidate("username", "A felhasználónévnek egyedinek kell lennie!");
+                return next(new Error("A felhasználónévnek egyedinek kell lennie!"));
+            }
+        } catch (err) {
+            return next(err);
+        }
+        
+        /*
+        await mongoose.models["user"].findOne({username: self.username}, function(err, user) {
+            if(err) {
+                return next(err);
+            } else if(user) {
+                self.invalidate("username", "A felhasználónévnek egyedinek kell lennie!");
+                return next(new Error("A felhasználónévnek egyedinek kell lennie!"));
+            } else {
+                //return next();
+            }
+        });
+        */
+        //next();
+    }
+
+    if(user.isModified('email')) {
+        try {
+            const dbUser = await mongoose.models["user"].findOne({email: self.email});
+            if (dbUser) {
+                user.invalidate("email", "Az e-mail címnek egyedinek kell lennie!");
+                return next(new Error("Az e-mail címnek egyedinek kell lennie!"));
+            }
+        } catch (err) {
+            return next(err);
+        }
+        /*
+        await mongoose.models["user"].findOne({email: self.email}, function(err, user) {
+            if(err) {
+                return next(err);
+            } else if(user) {
+                self.invalidate("email", "Az e-mail címnek egyedinek kell lennie!");
+                return next(new Error("Az e-mail címnek egyedinek kell lennie!"));
+            } else {
+                //return next();
+            }
+        });
+        */
+        //next();
+    }
+
+    return next();
 });
+
+userSchema.methods.comparePasswords = function(password, nx) {
+    bcrypt.compare(password, this.password, function(err, isMatch) {
+        nx(err, isMatch);
+    });
+};
 
 const User = mongoose.model('user', userSchema);
 

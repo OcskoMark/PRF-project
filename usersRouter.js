@@ -1,7 +1,57 @@
 const express = require('express');
-const router = express.Router();
+const usersRouter = express.Router();
 const mongoose = require('mongoose');
 const User = mongoose.model('user');
+
+const passport = require('passport');
+
+usersRouter.route('/login').post((req, res, next) => {
+    if (req.body.username, req.body.password) {
+        passport.authenticate('local', function (error, user) {
+            if (error) {
+                console.log(error);
+                return res.status(500).send(error);
+            }
+            req.login(user, function (error) {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send(error);
+                }
+                console.log("Sikeres bejelentkezés!");
+                return res.status(200).send('Sikeres bejelentkezés!');
+            })
+        })(req, res);
+    } else {
+        console.log("Hibás kérés, a felhasználónév és a jelszó megadása kötelező!");
+        return res.status(400).send('Hibás kérés, a felhasználónév és a jelszó megadása kötelező!');
+    }
+});
+  
+usersRouter.route('/logout').post((req, res, next) => {
+    if (req.isAuthenticated()) {
+        req.logout((err) => {
+            if(err) {
+                console.log("Hiba a kijelentkezés során!");
+                return res.status(500).send(err)
+            }
+            console.log("Sikeres kijelentkezés!");
+            return res.status(200).send('Kijelentkezés sikeres!');
+        });
+    } else {
+        console.log("Nem is volt bejelentkezve!");
+        return res.status(403).send('Nem is volt bejelentkezve!');
+    }
+});
+
+usersRouter.route('/status').get((req, res, next) => {
+    if (req.isAuthenticated()) {
+        console.log(req.user)
+        return res.status(200).send(req.user);
+    } else {
+        console.log("Nem is volt bejelentkezve!");
+        return res.status(403).send('Nem is volt bejelentkezve!');
+    }
+});
 
 async function getUser(req, res, next) {
     try {
@@ -10,14 +60,14 @@ async function getUser(req, res, next) {
             return res.status(404).json({ message: "A felhasználó nem található!" });
         }
     } catch (error) {
-        return res.staus(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
 
     res.user = user;
     next();
 }
 
-router.get('/', async (req, res) => {
+usersRouter.get('/', async (req, res) => {
     try {
         const users = await User.find();
         res.status(200).json(users);
@@ -26,11 +76,11 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', getUser, (req, res) => {
+usersRouter.get('/:id', getUser, (req, res) => {
     res.json(res.user);
 });
 
-router.post('/', async (req, res) => {
+usersRouter.post('/', async (req, res) => {
     const user = new User({
         username: req.body.username,
         password: req.body.password,
@@ -47,7 +97,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.patch('/:id', getUser, async (req, res) => {
+usersRouter.patch('/:id', getUser, async (req, res) => {
     if (req.body.username != null) {
         res.user.username = req.body.username;
     }
@@ -69,13 +119,13 @@ router.patch('/:id', getUser, async (req, res) => {
     }
 });
 
-router.delete('/:id', getUser, async (req, res) => {
+usersRouter.delete('/:id', getUser, async (req, res) => {
     try {
-        await res.user.remove();
-        res.json({ message: "A felhasználó törlése sikerült!" });
+      await res.user.remove();
+      res.json({ message: 'A felhasználó sikeresen törölve!' });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+      res.status(500).json({ message: error.message });
     }
-});
+  });
 
-module.exports = router;
+module.exports = usersRouter;

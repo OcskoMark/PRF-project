@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('user');
+const Game = mongoose.model('game');
 
 async function ensureAdminExists() {
     try {
@@ -48,4 +49,78 @@ async function ensureUsersExists() {
     ensureUserExists();
 }
 
-module.exports = ensureUsersExists;
+async function ensureSportGameExists() {
+    try {
+        const game = await Game.findOne({genre: "sport"});
+        if (game) {
+            console.log("Már van sportjáték az adatbázisban!");
+        } else {
+            const newGame = new Game({
+                name: "FIFA 23",
+                genre: "sport",
+                price: 18990,
+                sum: "A népszerű FIFA sorozat 2022/2023-as kiadása.",
+                releaseDate: "2022-09-27",
+            });
+            await newGame.save();
+            console.log("A sportjáték sikeresen hozzáadva az adatbázishoz.");
+        }
+    } catch (error) {
+        console.log("Hiba történt a sportjáték beszúrása közben.");
+    }
+}
+
+async function ensureRaceGameExists() {
+    try {
+        const game = await Game.findOne({genre: "autóverseny"});
+        if (game) {
+            console.log("Már van autóverseny az adatbázisban!");
+        } else {
+            const newGame = new Game({
+                name: "F1 22",
+                genre: "autóverseny",
+                price: 15990,
+                sum: "A népszerű F1 sorozat 2022-es kiadása.",
+                releaseDate: "2022-06-28",
+            });
+            await newGame.save();
+            console.log("Az autóverseny játék sikeresen hozzáadva az adatbázishoz.");
+        }
+    } catch (error) {
+        console.log("Hiba történt az autóverseny játék beszúrása közben.");
+    }
+}
+
+async function ensureStrategyGameExists() {
+    try {
+        const game = await Game.findOne({genre: "stratégia"});
+        if (game) {
+            console.log("Már van stratégiai játék az adatbázisban!");
+        } else {
+            const newGame = new Game({
+                name: "Imperium Galactica 2",
+                genre: "stratégia",
+                price: 1990,
+                sum: "A méltán híres magyar fejlesztésű űrstratégiai játék.",
+                releaseDate: "1999-12-01",
+            });
+            await newGame.save();
+            console.log("A stratégiai játék sikeresen hozzáadva az adatbázishoz.");
+        }
+    } catch (error) {
+        console.log("Hiba történt a stratégiai játék beszúrása közben.");
+    }
+}
+
+async function ensureGamesExists() {
+    ensureSportGameExists();
+    ensureRaceGameExists();
+    ensureStrategyGameExists();
+}
+
+async function ensureDatasExists() {
+    ensureUsersExists();
+    ensureGamesExists();
+}
+
+module.exports = ensureDatasExists;
