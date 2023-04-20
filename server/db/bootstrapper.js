@@ -67,6 +67,7 @@ async function ensureSportGameExists() {
         }
     } catch (error) {
         console.log("Hiba történt a sportjáték beszúrása közben.");
+        console.log(error);
     }
 }
 
@@ -88,6 +89,7 @@ async function ensureRaceGameExists() {
         }
     } catch (error) {
         console.log("Hiba történt az autóverseny játék beszúrása közben.");
+        console.log(error);
     }
 }
 
@@ -109,6 +111,7 @@ async function ensureStrategyGameExists() {
         }
     } catch (error) {
         console.log("Hiba történt a stratégiai játék beszúrása közben.");
+        console.log(error);
     }
 }
 

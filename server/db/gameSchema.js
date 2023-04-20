@@ -29,7 +29,7 @@ gameSchema.pre('save', async function (next) {
     const game = this;
     if(game.isModified('name')) {
         try {
-            const dbGame = await mongoose.models["game"].findOne({name: self.name});
+            const dbGame = await mongoose.models["game"].findOne({name: game.name});
             if (dbGame) {
                 game.invalidate("name", "A játék nevének egyedinek kell lennie!");
                 return next(new Error("A játék nevének egyedinek kell lennie!"));
@@ -37,18 +37,7 @@ gameSchema.pre('save', async function (next) {
         } catch (err) {
             return next(err);
         }
-        /*
-        await mongoose.models["game"].findOne({name: self.name}, function(err,game){
-            if(err){
-                return next(err);
-            } else if (game){
-                self.invalidate("name", "A játék nevének egyedinek kell lennie!");
-                return next(new Error("A játék nevének egyedinek kell lennie!"));
-            }
-        });
-        */
     }
-
     return next();
 });
 
