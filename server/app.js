@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 
 const passport = require('passport');
@@ -6,6 +7,17 @@ const localStrategy = require('passport-local').Strategy;
 const expressSession = require('express-session');
 
 const app = express();
+
+const whiteList = ['*'];
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (whiteList.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback('error')
+        }
+    }
+};
 
 mongoose.connect('mongodb://localhost:27017/prf-project-test-db', {
     useNewUrlParser: true,
@@ -28,6 +40,7 @@ const cookieParser = require('cookie-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 
 
 passport.use('local', new localStrategy(function (username, password, done) {
