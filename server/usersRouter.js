@@ -9,7 +9,7 @@ router.route('/login').post((req, res, next) => {
     if (req.body.username, req.body.password) {
         passport.authenticate('local', function (error, user) {
             if (error) return res.status(500).send(error);
-            req.login(user, function (error) {
+            req.logIn(user, function (error) {
                 if (error) return res.status(500).send(error);
                 return res.status(200).send('Sikeres bejelentkezés!');
             });

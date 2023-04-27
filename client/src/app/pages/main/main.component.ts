@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
+import { LoginService } from 'src/app/services/login.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -13,6 +14,6 @@ export class MainComponent {
 
   }
   
-  title = 'client';
+  //title = 'client';
 
 }

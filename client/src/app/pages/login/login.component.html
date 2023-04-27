@@ -1,1 +1,14 @@
-<p>login works!</p>
+<div class="content" role="main">
+
+    <h2>Bejelentkezés</h2>
+    <div>
+        <label>Felhasználónév: </label>
+        <input type="text" id="username" [(ngModel)]="username">
+    </div>
+    <div>
+        <label>Jelszó: </label>
+        <input type="password" id="password" [(ngModel)]="password">
+    </div>
+    <button (click)="login()">Bejelentkezés</button>
+  
+</div>

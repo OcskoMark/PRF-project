@@ -8,7 +8,7 @@ const expressSession = require('express-session');
 
 const app = express();
 
-const whiteList = ['*'];
+
 const corsOptions = {
     origin: (origin, callback) => {
         if (whiteList.indexOf(origin) !== -1) {
@@ -40,8 +40,19 @@ const cookieParser = require('cookie-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors());
 
+const whiteList = ['http://localhost:4200'];
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (whiteList.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback('error')
+        }
+    },
+    credentials: true, methods: "GET,PUT,POST,DELETE,OPTIONS"
+}));
 
 passport.use('local', new localStrategy(function (username, password, done) {
     User.findOne({ username: username }, function (err, user) {
