@@ -10,7 +10,7 @@ import { LoginService } from 'src/app/services/login.service';
 export class LoginComponent implements OnInit{
 
   username: string;
-  password: string
+  password: string;
 
   constructor(private loginService: LoginService, private router: Router) {
     this.username = '';
@@ -27,6 +27,10 @@ export class LoginComponent implements OnInit{
         console.log(error);
       });
     }
+  }
+
+  toRegister() {
+    this.router.navigate(['/register']);
   }
 
   ngOnInit(): void {
