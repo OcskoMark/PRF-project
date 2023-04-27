@@ -13,6 +13,7 @@ import { GameComponent } from './pages/game/game.component';
 import { UsersComponent } from './pages/admin/users/users.component';
 import { GamesComponent } from './pages/admin/games/games.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { MyToolbarsComponent } from './toolbars/my-toolbars/my-toolbars.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     GameComponent,
     UsersComponent,
     GamesComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    MyToolbarsComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [MyToolbarsComponent]
 })
 export class AppModule { 
 
