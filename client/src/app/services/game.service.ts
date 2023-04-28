@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -7,5 +7,12 @@ import { environment } from 'src/environments/environment';
 })
 export class GameService {
 
-  constructor(private http: HttpClientModule) { }
+  constructor(private http: HttpClient) { 
+  }
+
+  getGames() {
+    return this.http.get(environment.gameUrl);
+  }
+
+
 }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -10,7 +10,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string) {
-    return this.http.post(environment.userUrl + 'login', {username: username, password: password}, {responseType: 'text'});
+    return this.http.post(environment.userUrl + 'login', {username: username, password: password});
   }
 
   logout() {

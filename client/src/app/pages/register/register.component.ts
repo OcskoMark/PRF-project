@@ -11,11 +11,13 @@ export class RegisterComponent {
   username: string;
   password: string;
   email: string;
+  errorMessage: string;
 
   constructor (private router: Router, private userService: UserService) {
     this.username = '';
     this.password = '';
     this.email = '';
+    this.errorMessage = '';
   }
 
   register() {
@@ -25,7 +27,10 @@ export class RegisterComponent {
         this.router.navigate(['/login']);
       }, error => {
         console.log(error);
+        this.errorMessage = error.error.message;
       });
+    } else {
+      this.errorMessage = 'Az összes mező kitöltése kötelező!';
     }
   }
   

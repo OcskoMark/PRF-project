@@ -65,35 +65,6 @@ userSchema.pre('save', function(next) {
     if(user.isModified('email')) {
         checkEmail(user, next);
     }
-    /*
-    if(user.isModified('username')) {
-        console.log("A felhasználónév módosult.");
-        try {
-            console.log("A felhasználónév ellenőrzése.");
-            const dbUser = await mongoose.models["user"].findOne({username: user.username});
-            if (dbUser) {
-                user.invalidate("username", "A felhasználónévnek egyedinek kell lennie!");
-                return next(new Error("A felhasználónévnek egyedinek kell lennie!"));
-            }
-        } catch (err) {
-            return next(err);
-        }
-    }
-
-    if(user.isModified('email')) {
-        console.log("Az e-mail cím módosult.");
-        try {
-            console.log("Az e-mail cím egyediségének ellenőrzése.");
-            const dbUser = await mongoose.models["user"].findOne({email: user.email});
-            if (dbUser) {
-                user.invalidate("email", "Az e-mail címnek egyedinek kell lennie!");
-                return next(new Error("Az e-mail címnek egyedinek kell lennie!"));
-            }
-        } catch (err) {
-            return next(err);
-        }
-    }
-    */
     
     if(user.isModified('password')) {
         console.log("A jelszó módosult.");

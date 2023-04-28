@@ -60,7 +60,7 @@ passport.use('local', new localStrategy(function (username, password, done) {
         if (!user) return done('Nincs ilyen felhasználónév!', null);
         user.comparePasswords(password, function (error, isMatch) {
             if (error) return done(error, false);
-            if (!isMatch) return done('Hibás jelszó', false);
+            if (!isMatch) return done('Hibás jelszó!', false);
             return done(null, user);
         });
     });

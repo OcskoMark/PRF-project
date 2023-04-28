@@ -11,21 +11,27 @@ export class LoginComponent implements OnInit{
 
   username: string;
   password: string;
+  errorMessage: string;
 
   constructor(private loginService: LoginService, private router: Router) {
     this.username = '';
     this.password = '';
+    this.errorMessage = '';
   }
 
   login() {
     if (this.username != '' && this.password != '') {
       this.loginService.login(this.username, this.password).subscribe(msg => {
         console.log(msg);
-        localStorage.setItem('user', this.username);
+        localStorage.setItem('id', JSON.parse(JSON.stringify(msg))._id);
+        localStorage.setItem('accessLevel', JSON.parse(JSON.stringify(msg)).accessLevel);
         this.router.navigate(['/main']);
       }, error => {
         console.log(error);
+        this.errorMessage = error.error;
       });
+    } else {
+      this.errorMessage = 'A felhasználónév és a jelszó megadása is kötelező a bejelentkezéshez!';
     }
   }
 
@@ -34,8 +40,9 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('user')) {
-      localStorage.removeItem('user');
+    if (localStorage.getItem('id')) {
+      localStorage.removeItem('id');
+      localStorage.removeItem('accessLevel');
       this.loginService.logout().subscribe(msg => {
         console.log(msg);
       }, error => {

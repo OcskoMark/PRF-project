@@ -25,6 +25,10 @@
     flex: 1;
   }
 
+  .toolbar-border {
+    flex: 0.1;
+  }
+
   .toolbar {
     position: absolute;
     top: 0;

@@ -1,3 +1,4 @@
+<app-my-toolbars></app-my-toolbars>
 <div class="content" role="main">
 
     <h2>Bejelentkezés</h2>
@@ -13,5 +14,9 @@
     </div>
     <button (click)="login()">Bejelentkezés</button>
     <button (click)="toRegister()">Regisztráció</button>
+
+    <div class ="content" role="main" *ngIf="errorMessage != ''">
+        <h4>{{errorMessage}}</h4>
+    </div>
   
 </div>

@@ -9,9 +9,15 @@ router.route('/login').post((req, res, next) => {
     if (req.body.username, req.body.password) {
         passport.authenticate('local', function (error, user) {
             if (error) return res.status(500).send(error);
-            req.logIn(user, function (error) {
-                if (error) return res.status(500).send(error);
-                return res.status(200).send('Sikeres bejelentkezés!');
+            req.logIn(user, async function (error) {
+                if (error) {
+                    return res.status(500).send(error);
+                } else {
+                    user = await User.findOne({username: req.body.username});
+                    return res.status(200).send(user);
+                }
+
+                //return res.status(200).send('Sikeres bejelentkezés!');
             });
         })(req, res);
     } else {
@@ -63,6 +69,21 @@ async function getUser(req, res, next) {
     res.user = user;
     next();
 }
+
+/*
+async function getId(req, res, next) {
+    try {
+        user = await User.findOne({username: req.username});
+        if (user == null) {
+            return res.status(404).json({ message: 'A felhasználó nem található!' });
+        } else {
+            return res.status(200).send(user.id);
+        }
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+}
+*/
 
 router.get('/', async (req, res) => {
     try {
