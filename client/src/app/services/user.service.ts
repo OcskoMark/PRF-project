@@ -17,8 +17,20 @@ export class UserService {
     return this.http.get(environment.userUrl + id);
   }
 
-  patchUser(id: string, username: string, password: string, email: string, accessLevel: string) {
+  patchUser(id: string, username: string, password: string, email: string, accessLevel: number) {
     return this.http.patch(environment.userUrl + id, {username: username, password: password, email: email, accessLevel: accessLevel}, {responseType: "json"});
+  }
+
+  deleteUser(id: string) {
+    return this.http.delete(environment.userUrl + id, {responseType: "json"});
+  }
+
+  makeAdmin(id: string) {
+    return this.patchUser(id, '', '', '', 3);
+  }
+
+  getUsers() {
+    return this.http.get(environment.userUrl, {responseType: "json"});
   }
 
   getRole() {

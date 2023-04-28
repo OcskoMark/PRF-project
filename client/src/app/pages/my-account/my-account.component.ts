@@ -14,6 +14,7 @@ export class MyAccountComponent implements OnInit{
   responseMessage: string;
   id: string | null;
   userId: string;
+  accessLevel: number;
 
   constructor (private userService: UserService) {
     this.username = '';
@@ -22,10 +23,11 @@ export class MyAccountComponent implements OnInit{
     this.responseMessage = '';
     this.id = '';
     this.userId = '';
+    this.accessLevel = 0;
   }
 
   save() {
-    this.userService.patchUser(this.userId, this.username, this.password, this.email, '').subscribe(msg => {
+    this.userService.patchUser(this.userId, this.username, this.password, this.email, this.accessLevel).subscribe(msg => {
       console.log(msg);
       this.responseMessage = 'A felhasználói adatok sikeresen frissítve!';
     }, error => {
@@ -47,6 +49,7 @@ export class MyAccountComponent implements OnInit{
           console.log(user);
           this.username = JSON.parse(JSON.stringify(user)).username;
           this.email = JSON.parse(JSON.stringify(user)).email;
+          this.accessLevel = JSON.parse(JSON.stringify(user)).accessLevel;
         }, error => {
           this.responseMessage = error.error;
         });

@@ -1,4 +1,4 @@
-<div class="toolbar" role="banner" *ngIf="role==''">
+<div class="toolbar" role="banner" *ngIf="getRole() == ''">
     
     <div class="toolbar-border"></div>
     <span>Játékbolt</span>
@@ -9,7 +9,7 @@
     <div class="toolbar-border"></div>
 </div>
 
-<div class="toolbar" role="banner" *ngIf="role=='user'">
+<div class="toolbar" role="banner" *ngIf="getRole() == 'user'">
     
     <div class="toolbar-border"></div>
     <span>Játékbolt</span>
@@ -24,12 +24,14 @@
     <div class="toolbar-border"></div>
 </div>
 
-<div class="toolbar" role="banner" *ngIf="role=='admin'">
+<div class="toolbar" role="banner" *ngIf="getRole() == 'admin'">
     
     <div class="toolbar-border"></div>
     <span>Játékbolt</span>
     <div class="spacer"></div>
     <span>Jogoultsági szint: admin</span>
+    <div class="spacer"></div>
+    <a [routerLink]="['/admin/users']">Felhasználók</a>
     <div class="spacer"></div>
     <a [routerLink]="['/main']">Játékok</a>
     <div class="spacer"></div>
