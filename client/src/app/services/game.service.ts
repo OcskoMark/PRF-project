@@ -15,8 +15,8 @@ export class GameService {
     return this.http.get(environment.gameUrl, {responseType: "json"});
   }
 
-  create(name: string, genre: string, price: number, sum: string, releaseDate: Date) {
-    return this.http.post(environment.gameUrl, {name: name, genre: genre, price: price, sum: sum, releaseDate: releaseDate});
+  create(title: string, genre: string, price: number, sum: string, releaseDate: Date) {
+    return this.http.post(environment.gameUrl, {title: title, genre: genre, price: price, sum: sum, releaseDate: releaseDate});
   }
 
   getGameData(id: string) {
@@ -25,6 +25,10 @@ export class GameService {
 
   patchGame(id: string, title: string, genre: string, price: number, sum: string, releaseDate: Date) {
     return this.http.patch(environment.gameUrl + id, {title: title, genre: genre, price: price, sum: sum, releaseDate: releaseDate}, {responseType: "json"});
+  }
+
+  deleteGame(id: string) {
+    return this.http.delete(environment.gameUrl + id, {responseType: "json"});
   }
 
 

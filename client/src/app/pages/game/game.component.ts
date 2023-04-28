@@ -40,7 +40,7 @@ export class GameComponent implements OnInit {
         this.genre = JSON.parse(JSON.stringify(game)).genre;
         this.sum = JSON.parse(JSON.stringify(game)).sum;
         this.price = JSON.parse(JSON.stringify(game)).price;
-        this.releaseDate = JSON.parse(JSON.stringify(game)).releaseDate;
+        this.releaseDate = JSON.parse(JSON.stringify(game)).releaseDate.substring(0,10);
       }, error => {
         console.log(error);
         this.responseMessage = error.error.message;

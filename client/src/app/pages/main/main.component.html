@@ -23,7 +23,7 @@
         <label>Megjelenési dátum: </label>
         <input type="date" id="releaseDate" [(ngModel)]="newGameReleaseDate">
     </div>
-    <button (click)="save()">Felvétel</button>
+    <button (click)="saveGame()">Felvétel</button>
 </div>
 
 <div class="content" role="main" *ngIf="responseMessage != ''">
@@ -45,7 +45,8 @@
                 <td class = "table">{{getTitle(game)}}</td>
                 <td class = "table">{{getGenre(game)}}</td>
                 <td class = "table">{{getPrice(game)}}</td>
-                <td class = "table"><button (click)="getDetails(game)">Részletek</button></td>
+                <td class = "table"><button (click)="getDetails(game)">{{detailsButtonTitle}}</button></td>
+                <td class = "table" *ngIf="getRole() == 'admin'"><button (click)="deleteGame(game)">Törlés</button></td>
             </tr>
         </ng-container>
     </table>
