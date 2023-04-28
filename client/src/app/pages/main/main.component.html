@@ -1,6 +1,54 @@
 <app-my-toolbars></app-my-toolbars>
+
+<div class="content" role="main" *ngIf="getRole()=='admin'">
+
+    <h2>Új játék felvétele:</h2>
+    <div class="spacer">
+        <label>Cím: </label>
+        <input type="text" id="title" [(ngModel)]="newGameTitle">
+    </div>
+    <div class="spacer">
+        <label>Műfaj: </label>
+        <input type="text" id="genre" [(ngModel)]="newGameGenre">
+    </div>
+    <div class="spacer">
+        <label>Ár: </label>
+        <input type="number" id="price" [(ngModel)]="newGamePrice">
+    </div>
+    <div class="spacer">
+        <label>Leírás: </label>
+        <input type="text" id="sum" [(ngModel)]="newGameSum">
+    </div>
+    <div class="spacer">
+        <label>Megjelenési dátum: </label>
+        <input type="date" id="releaseDate" [(ngModel)]="newGameReleaseDate">
+    </div>
+    <button (click)="save()">Felvétel</button>
+</div>
+
+<div class="content" role="main" *ngIf="responseMessage != ''">
+    <h4>{{responseMessage}}</h4>
+</div>
+
 <div class="content" role="main">
 
-    <a [routerLink]="['/login']">Kijelentkezés</a>
+    <h2>Játékok:</h2>
+    <div class = "spacer"></div>
+    <table class = "table">
+        <tr>
+            <th class = "table">Cím</th>
+            <th class = "table">Műfaj</th>
+            <th class = "table">Ár</th>
+        </tr>
+        <ng-container *ngFor="let game of games">
+            <tr>
+                <td class = "table">{{getTitle(game)}}</td>
+                <td class = "table">{{getGenre(game)}}</td>
+                <td class = "table">{{getPrice(game)}}</td>
+                <td class = "table"><button (click)="getDetails(game)">Részletek</button></td>
+            </tr>
+        </ng-container>
+    </table>
+    <div clss ="spacer"></div>
   
 </div>

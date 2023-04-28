@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const gameSchema = new mongoose.Schema({
-    name: {
+    title: {
         type: String,
         required: true,
         unique: true,
@@ -27,12 +27,12 @@ const gameSchema = new mongoose.Schema({
 
 gameSchema.pre('save', async function (next) {
     const game = this;
-    if(game.isModified('name')) {
+    if(game.isModified('title')) {
         try {
-            const dbGame = await mongoose.models["game"].findOne({name: game.name});
+            const dbGame = await mongoose.models["game"].findOne({title: game.title});
             if (dbGame) {
-                game.invalidate("name", "A játék nevének egyedinek kell lennie!");
-                return next(new Error("A játék nevének egyedinek kell lennie!"));
+                game.invalidate("title", "A játék címének egyedinek kell lennie!");
+                return next(new Error("A játék címének egyedinek kell lennie!"));
             }
         } catch (err) {
             return next(err);

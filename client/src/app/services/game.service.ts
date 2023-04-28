@@ -7,11 +7,24 @@ import { environment } from 'src/environments/environment';
 })
 export class GameService {
 
+
   constructor(private http: HttpClient) { 
   }
 
   getGames() {
-    return this.http.get(environment.gameUrl);
+    return this.http.get(environment.gameUrl, {responseType: "json"});
+  }
+
+  create(name: string, genre: string, price: number, sum: string, releaseDate: Date) {
+    return this.http.post(environment.gameUrl, {name: name, genre: genre, price: price, sum: sum, releaseDate: releaseDate});
+  }
+
+  getGameData(id: string) {
+    return this.http.get(environment.gameUrl + id, {responseType: "json"});
+  }
+
+  patchGame(id: string, title: string, genre: string, price: number, sum: string, releaseDate: Date) {
+    return this.http.patch(environment.gameUrl + id, {title: title, genre: genre, price: price, sum: sum, releaseDate: releaseDate}, {responseType: "json"});
   }
 
 

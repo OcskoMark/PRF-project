@@ -1,1 +1,25 @@
 <app-my-toolbars></app-my-toolbars>
+<div class="content" role="main">
+
+    <h2>Felhasználói adatok:</h2>
+    <div layout="row" layout-margin>
+        <div flex>
+            <label>Felhasználónév: </label>
+            <input type="text" id="username" [(ngModel)]="username">
+        </div>
+        <div flex>
+            <label>Jelszó: </label>
+            <input type="password" id="password" [(ngModel)]="password">
+        </div>
+        <div flex>
+            <label>E-mail: </label>
+            <input type="text" id="email" [(ngModel)]="email">
+        </div>
+    </div>
+    <button (click)="save()">Mentés</button>
+  
+</div>
+
+<div class ="content" role="main" *ngIf="responseMessage != ''">
+    <h4>{{responseMessage}}</h4>
+</div>

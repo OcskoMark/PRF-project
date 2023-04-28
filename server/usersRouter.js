@@ -70,21 +70,6 @@ async function getUser(req, res, next) {
     next();
 }
 
-/*
-async function getId(req, res, next) {
-    try {
-        user = await User.findOne({username: req.username});
-        if (user == null) {
-            return res.status(404).json({ message: 'A felhasználó nem található!' });
-        } else {
-            return res.status(200).send(user.id);
-        }
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    }
-}
-*/
-
 router.get('/', async (req, res) => {
     try {
         const users = await User.find();
@@ -116,16 +101,16 @@ router.post('/', async (req, res) => {
 });
 
 router.patch('/:id', getUser, async (req, res) => {
-    if (req.body.username != null) {
+    if (req.body.username != null && req.body.username != '') {
         res.user.username = req.body.username;
     }
-    if (req.body.password != null) {
+    if (req.body.password != null && req.body.password != '') {
         res.user.password = req.body.password;
     }
-    if (req.body.email != null) {
+    if (req.body.email != null && req.body.email != '') {
         res.user.email = req.body.email;
     }
-    if (req.body.accessLevel != null) {
+    if (req.body.accessLevel != null && req.body.accessLevel != '') {
         res.user.accessLevel = req.body.accessLevel;
     }
 

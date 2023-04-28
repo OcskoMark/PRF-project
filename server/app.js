@@ -19,7 +19,7 @@ const corsOptions = {
     }
 };
 
-mongoose.connect('mongodb://localhost:27017/prf-project-test-db', {
+mongoose.connect('mongodb://localhost:27017/prf-project-db', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
@@ -51,7 +51,7 @@ app.use(cors({
             callback('error')
         }
     },
-    credentials: true, methods: "GET,PUT,POST,DELETE,OPTIONS"
+    credentials: true, methods: "GET,PUT,POST,DELETE,OPTIONS,PATCH"
 }));
 
 passport.use('local', new localStrategy(function (username, password, done) {

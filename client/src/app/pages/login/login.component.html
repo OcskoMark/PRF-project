@@ -15,8 +15,8 @@
     <button (click)="login()">Bejelentkezés</button>
     <button (click)="toRegister()">Regisztráció</button>
 
-    <div class ="content" role="main" *ngIf="errorMessage != ''">
-        <h4>{{errorMessage}}</h4>
+    <div class ="content" role="main" *ngIf="responseMessage != ''">
+        <h4>{{responseMessage}}</h4>
     </div>
   
 </div>

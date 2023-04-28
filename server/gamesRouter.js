@@ -22,7 +22,7 @@ gamesRouter.get('/', async (req, res) => {
         const games = await Game.find();
         res.status(200).json(games);
     } catch (error) {
-        return res.staus(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
 });
 
@@ -32,7 +32,7 @@ gamesRouter.get('/:id', getGame, (req, res) => {
 
 gamesRouter.post('/', async (req, res) => {
     const game = new Game({
-        name: req.body.name,
+        title: req.body.title,
         genre: req.body.genre,
         price: req.body.price,
         sum: req.body.sum,
@@ -48,16 +48,16 @@ gamesRouter.post('/', async (req, res) => {
 });
 
 gamesRouter.patch('/:id', getGame, async (req, res) => {
-    if (req.body.name != null) {
-        res.game.name = req.body.name;
+    if (req.body.title != null && req.body.title != '') {
+        res.game.title = req.body.title;
     }
-    if (req.body.genre != null) {
+    if (req.body.genre != null && req.body.genre != '') {
         res.game.genre = req.body.genre;
     }
-    if (req.body.price != null) {
+    if (req.body.price != null && req.body.price != 0) {
         res.game.price = req.body.price;
     }
-    if (req.body.sum != null) {
+    if (req.body.sum != null && req.body.sum != '') {
         res.game.sum = req.body.sum;
     }
     if (req.body.releaseDate != null) {

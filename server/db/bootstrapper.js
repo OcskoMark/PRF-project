@@ -56,7 +56,7 @@ async function ensureSportGameExists() {
             console.log("Már van sportjáték az adatbázisban!");
         } else {
             const newGame = new Game({
-                name: "FIFA 23",
+                title: "FIFA 23",
                 genre: "sport",
                 price: 18990,
                 sum: "A népszerű FIFA sorozat 2022/2023-as kiadása.",
@@ -78,7 +78,7 @@ async function ensureRaceGameExists() {
             console.log("Már van autóverseny az adatbázisban!");
         } else {
             const newGame = new Game({
-                name: "F1 22",
+                title: "F1 22",
                 genre: "autóverseny",
                 price: 15990,
                 sum: "A népszerű F1 sorozat 2022-es kiadása.",
@@ -100,7 +100,7 @@ async function ensureStrategyGameExists() {
             console.log("Már van stratégiai játék az adatbázisban!");
         } else {
             const newGame = new Game({
-                name: "Imperium Galactica 2",
+                title: "Imperium Galactica 2",
                 genre: "stratégia",
                 price: 1990,
                 sum: "A méltán híres magyar fejlesztésű űrstratégiai játék.",

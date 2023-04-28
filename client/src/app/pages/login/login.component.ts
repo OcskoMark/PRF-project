@@ -11,12 +11,12 @@ export class LoginComponent implements OnInit{
 
   username: string;
   password: string;
-  errorMessage: string;
+  responseMessage: string;
 
   constructor(private loginService: LoginService, private router: Router) {
     this.username = '';
     this.password = '';
-    this.errorMessage = '';
+    this.responseMessage = '';
   }
 
   login() {
@@ -28,10 +28,10 @@ export class LoginComponent implements OnInit{
         this.router.navigate(['/main']);
       }, error => {
         console.log(error);
-        this.errorMessage = error.error;
+        this.responseMessage = error.error;
       });
     } else {
-      this.errorMessage = 'A felhasználónév és a jelszó megadása is kötelező a bejelentkezéshez!';
+      this.responseMessage = 'A felhasználónév és a jelszó megadása is kötelező a bejelentkezéshez!';
     }
   }
 

@@ -1,1 +1,51 @@
 <app-my-toolbars></app-my-toolbars>
+
+<div class="content" role="main" *ngIf="getRole()=='admin'">
+
+    <h2>Játék szerkesztése:</h2>
+    <div class="spacer">
+        <label>Cím: </label>
+        <input type="text" id="title" [(ngModel)]="title">
+    </div>
+    <div class="spacer">
+        <label>Műfaj: </label>
+        <input type="text" id="genre" [(ngModel)]="genre">
+    </div>
+    <div class="spacer">
+        <label>Ár: </label>
+        <input type="number" id="price" [(ngModel)]="price">
+    </div>
+    <div class="spacer">
+        <label>Leírás: </label>
+        <input type="text" id="sum" [(ngModel)]="sum">
+    </div>
+    <div class="spacer">
+        <label>Megjelenési dátum: </label>
+        <input type="date" id="releaseDate" [(ngModel)]="releaseDate">
+    </div>
+    <button (click)="update()">Mentés</button>
+</div>
+
+<div class="content" role="main" *ngIf="getRole()=='user'">
+
+    <h2>Játék adatai:</h2>
+    <div class="spacer">
+        <label><b>Cím:</b> {{title}}</label>
+    </div>
+    <div class="spacer">
+        <label><b>Műfaj:</b> {{genre}} </label>
+    </div>
+    <div class="spacer">
+        <label><b>Ár:</b> {{price}} </label>
+    </div>
+    <div class="spacer">
+        <label><b>Leírás:</b> {{sum}} </label>
+    </div>
+    <div class="spacer">
+        <label><b>Megjelenési dátum:</b> {{releaseDate}} </label>
+    </div>
+</div>
+
+<div class ="content" role="main" *ngIf="responseMessage != ''">
+    <h4>{{responseMessage}}</h4>
+</div>

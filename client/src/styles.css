@@ -29,6 +29,11 @@
     flex: 0.1;
   }
 
+  .table {
+    border: 1px solid;
+    border-collapse: collapse;
+  }
+
   .toolbar {
     position: absolute;
     top: 0;
