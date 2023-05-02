@@ -12,26 +12,26 @@ import { UserService } from 'src/app/services/user.service';
 export class MainComponent implements OnInit{
 
   games: JSON[];
-  index: number;
   newGameTitle: string;
   newGameGenre: string;
   newGamePrice: number;
   newGameSum: string;
   newGameReleaseDate: Date | null;
   responseMessage: string;
-  gameId: string;
+  storedGameMessage: string | null;
+  //gameId: string;
   detailsButtonTitle: string;
   
   constructor(private userService: UserService, private gameService: GameService, private router: Router) {
     this.games = [];
-    this.index = 0;
     this.newGameTitle = '';
     this.newGameGenre = '';
     this.newGamePrice = 0;
     this.newGameSum = '';
     this.newGameReleaseDate = null;
     this.responseMessage = '';
-    this.gameId = '';
+    this.storedGameMessage = '';
+    //this.gameId = '';
     this.detailsButtonTitle = '';
     this.setDetailsButtonTitle();
   }
@@ -50,6 +50,7 @@ export class MainComponent implements OnInit{
       this.games = JSON.parse(JSON.stringify(games));
     }, error => {
       console.log(error);
+      this.responseMessage = error.error.message;
     });
   }
 
@@ -60,17 +61,22 @@ export class MainComponent implements OnInit{
   saveGame() {
     if (this.getRole() != 'admin') {
       this.responseMessage = 'Nincs jogosultsága a funkció használatához!';
-    } else if (this.newGameTitle != '' && this.newGameGenre != '' && this.newGamePrice != 0 && this.newGameSum != '' && this.newGameReleaseDate != null) {
+    } else if (this.newGameTitle != '' && this.newGameGenre != '' && this.newGamePrice >= 0 && this.newGameSum != '' && this.newGameReleaseDate != null) {
       this.gameService.create(this.newGameTitle, this.newGameGenre, this.newGamePrice, this.newGameSum, this.newGameReleaseDate).subscribe(newGame => {
         console.log(newGame);
-        this.responseMessage = 'Az új játék sikeresen hozzáadva az adatbázishoz!';
+        localStorage.setItem('gameMessage', this.newGameTitle + ' című játék sikeresen hozzáadva az adatbázishoz!');
+        //this.responseMessage = 'Az új játék sikeresen hozzáadva az adatbázishoz!';
         this.reload();
       }, error => {
         console.log(error);
         this.responseMessage = error.error.message;
       });
     } else {
-      this.responseMessage = 'Minden mező megadása kötelező!';
+      if (this.newGamePrice < 0) {
+        this.responseMessage = "A játék ára nem lehet negatív!";
+      } else {
+        this.responseMessage = 'Minden mező megadása kötelező!';
+      }
     }
   }
 
@@ -98,7 +104,8 @@ export class MainComponent implements OnInit{
   deleteGame(game: JSON) {
     this.gameService.deleteGame(JSON.parse(JSON.stringify(game))._id).subscribe(msg => {
       console.log(msg);
-      this.responseMessage = 'A játék sikeresen törölve az adatbázisból!';
+      localStorage.setItem('gameMessage', JSON.parse(JSON.stringify(game)).title + ' című játék sikeresen törölve az adatbázisból!');
+      //this.responseMessage = 'A játék sikeresen törölve az adatbázisból!';
       this.reload();
     }, error => {
       console.log(error);
@@ -109,6 +116,13 @@ export class MainComponent implements OnInit{
   ngOnInit(): void {
     this.setDetailsButtonTitle();
     this.getGames();
+    this.storedGameMessage = localStorage.getItem('gameMessage');
+    if (this.storedGameMessage) {
+      localStorage.removeItem('gameMessage');
+      this.responseMessage = this.storedGameMessage;
+    } else {
+      this.responseMessage = "";
+    }
   }
 
 }

@@ -22,13 +22,18 @@ export class RegisterComponent {
 
   register() {
     if (this.username != '' && this.password != '' && this.email != '') {
-      this.userService.register(this.username, this.password, this.email).subscribe(msg => {
-        console.log(msg);
-        this.router.navigate(['/login']);
-      }, error => {
-        console.log(error);
-        this.responseMessage = error.error.message;
-      });
+      if (this.email.includes('@') && this.email.includes('.')) {
+        this.userService.register(this.username, this.password, this.email).subscribe(msg => {
+          console.log(msg);
+          localStorage.setItem('registerMessage', 'Sikeres regisztráció, kérjük, jelentkezzen be!');
+          this.router.navigate(['/login']);
+        }, error => {
+          console.log(error);
+          this.responseMessage = error.error.message;
+        });
+      } else {
+        this.responseMessage = "Érvénytelen e-mail cím formátum!";
+      }
     } else {
       this.responseMessage = 'Az összes mező kitöltése kötelező!';
     }

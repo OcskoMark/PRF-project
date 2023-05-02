@@ -11,7 +11,6 @@ import { RegisterComponent } from './pages/register/register.component';
 import { MyAccountComponent } from './pages/my-account/my-account.component';
 import { GameComponent } from './pages/game/game.component';
 import { UsersComponent } from './pages/admin/users/users.component';
-import { GamesComponent } from './pages/admin/games/games.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { MyToolbarsComponent } from './toolbars/my-toolbars/my-toolbars.component';
 
@@ -24,7 +23,6 @@ import { MyToolbarsComponent } from './toolbars/my-toolbars/my-toolbars.componen
     MyAccountComponent,
     GameComponent,
     UsersComponent,
-    GamesComponent,
     NotFoundComponent,
     MyToolbarsComponent
   ],

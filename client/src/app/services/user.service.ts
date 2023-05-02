@@ -25,8 +25,8 @@ export class UserService {
     return this.http.delete(environment.userUrl + id, {responseType: "json"});
   }
 
-  makeAdmin(id: string) {
-    return this.patchUser(id, '', '', '', 3);
+  setAdmin(id: string, accessLevel: number) {
+    return this.patchUser(id, '', '', '', accessLevel);
   }
 
   getUsers() {

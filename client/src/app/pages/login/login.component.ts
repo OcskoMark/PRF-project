@@ -12,11 +12,13 @@ export class LoginComponent implements OnInit{
   username: string;
   password: string;
   responseMessage: string;
+  storedRegisterMessage: string | null;
 
   constructor(private loginService: LoginService, private router: Router) {
     this.username = '';
     this.password = '';
     this.responseMessage = '';
+    this.storedRegisterMessage = '';
   }
 
   login() {
@@ -49,7 +51,13 @@ export class LoginComponent implements OnInit{
         console.log(error);
       });
     }
-    
+    this.storedRegisterMessage = localStorage.getItem('registerMessage');
+    if (this.storedRegisterMessage) {
+      localStorage.removeItem('registerMessage');
+      this.responseMessage = this.storedRegisterMessage;
+    } else {
+      this.responseMessage = "";
+    }
   }
 
 }
