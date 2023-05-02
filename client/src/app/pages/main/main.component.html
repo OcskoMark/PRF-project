@@ -13,7 +13,7 @@
     </div>
     <div class="spacer">
         <label>Ár: </label>
-        <input type="number" id="price" [(ngModel)]="newGamePrice">
+        <input type="number" id="price" [(ngModel)]="newGamePrice"> Ft
     </div>
     <div class="spacer">
         <label>Leírás: </label>
@@ -44,7 +44,7 @@
             <tr>
                 <td class = "table">{{getTitle(game)}}</td>
                 <td class = "table">{{getGenre(game)}}</td>
-                <td class = "table">{{getPrice(game)}}</td>
+                <td class = "table">{{getPrice(game)}} Ft</td>
                 <td class = "table"><button (click)="getDetails(game)">{{detailsButtonTitle}}</button></td>
                 <td class = "table" *ngIf="getRole() == 'admin'"><button (click)="deleteGame(game)">Törlés</button></td>
             </tr>
