@@ -104,6 +104,11 @@ export class MainComponent implements OnInit{
 
   ngOnInit(): void {
     this.setDetailsButtonTitle();
+    this.newGameGenre = '';
+    this.newGamePrice = 0;
+    this.newGameReleaseDate = null;
+    this.newGameSum = '';
+    this.newGameTitle = '';
     this.getGames();
   }
 

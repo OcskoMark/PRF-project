@@ -16,8 +16,6 @@ router.route('/login').post((req, res, next) => {
                     user = await User.findOne({username: req.body.username});
                     return res.status(200).send(user);
                 }
-
-                //return res.status(200).send('Sikeres bejelentkezés!');
             });
         })(req, res);
     } else {
