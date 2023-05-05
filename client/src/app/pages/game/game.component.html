@@ -1,6 +1,6 @@
 <app-my-toolbars></app-my-toolbars>
 
-<div class="content" role="main" *ngIf="getRole()=='admin'">
+<div class="content" role="main" *ngIf="getRole() == 'admin'">
 
     <h2>Játék szerkesztése:</h2>
     <div class="spacer">
@@ -26,7 +26,7 @@
     <button (click)="update()">Mentés</button>
 </div>
 
-<div class="content" role="main" *ngIf="getRole()=='user'">
+<div class="content" role="main" *ngIf="getRole() == 'user'">
 
     <h2>Játék adatai:</h2>
     <div class="spacer">
@@ -36,7 +36,7 @@
         <label><b>Műfaj:</b> {{genre}} </label>
     </div>
     <div class="spacer">
-        <label><b>Ár:</b> {{price}} Ft</label>
+        <label><b>Ár:</b> {{priceString}} Ft</label>
     </div>
     <div class="spacer">
         <label><b>Leírás:</b> {{sum}} </label>

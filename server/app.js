@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
 
 const passport = require('passport');
@@ -8,18 +7,7 @@ const expressSession = require('express-session');
 
 const app = express();
 
-
-const corsOptions = {
-    origin: (origin, callback) => {
-        if (whiteList.indexOf(origin) !== -1) {
-            callback(null, true)
-        } else {
-            callback('error')
-        }
-    }
-};
-
-mongoose.connect('mongodb://localhost:27017/prf-project-db', {
+mongoose.connect('mongodb://localhost:27017/CY95DD', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
@@ -40,19 +28,6 @@ const cookieParser = require('cookie-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-const whiteList = ['http://localhost:4200'];
-
-app.use(cors({
-    origin: (origin, callback) => {
-        if (whiteList.indexOf(origin) !== -1) {
-            callback(null, true)
-        } else {
-            callback('error')
-        }
-    },
-    credentials: true, methods: "GET,PUT,POST,DELETE,OPTIONS,PATCH"
-}));
 
 passport.use('local', new localStrategy(function (username, password, done) {
     User.findOne({ username: username }, function (err, user) {
@@ -88,6 +63,8 @@ app.use((req, res, next) => {
 
 app.use('/api/users', require('./usersRouter'));
 app.use('/api/games', require('./gamesRouter'));
+
+app.use('', express.static('public'));
 
 app.listen(3000, () => {
   console.log('A szerver fut, és elérhető a http://localhost:3000 címen.');

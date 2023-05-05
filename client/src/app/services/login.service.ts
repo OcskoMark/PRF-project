@@ -16,4 +16,5 @@ export class LoginService {
   logout() {
     return this.http.post(environment.userUrl + 'logout', {}, {withCredentials: true, responseType: 'text'});
   }
+  
 }

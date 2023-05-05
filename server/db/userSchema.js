@@ -27,39 +27,15 @@ const userSchema = new mongoose.Schema({
     },
 });
 
-async function checkUsername(user, next) {
-    try {
-        const dbUser = await mongoose.models["user"].findOne({username: user.username});
-        if (dbUser) {
-            user.invalidate("username", "A felhasználónévnek egyedinek kell lennie!");
-            return next(new Error("A felhasználónévnek egyedinek kell lennie!"));
-        }
-    } catch (err) {
-        return next(err);
-    }
-}
-
-async function checkEmail(user, next) {
-    try {
-        const dbUser = await mongoose.models["user"].findOne({email: user.email});
-        if (dbUser) {
-            user.invalidate("email", "Az e-mail címnek egyedinek kell lennie!");
-            return next(new Error("Az e-mail címnek egyedinek kell lennie!"));
-        }
-    } catch (err) {
-        return next(err);
-    }
-}
-
 userSchema.pre('save', function(next) {
     const user = this;
     
-    if(user.isModified('username')) {
-        checkUsername(user, next);
-    }
+    if (user.isModified('email')) {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(user.email)) {
 
-    if(user.isModified('email')) {
-        checkEmail(user, next);
+        } else {
+            return next(new Error("Nem megfelelő e-mail cím formátum!"));
+        }
     }
     
     if(user.isModified('password')) {

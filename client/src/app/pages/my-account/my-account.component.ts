@@ -27,22 +27,13 @@ export class MyAccountComponent implements OnInit{
   }
 
   save() {
-    if (this.email.includes('@') && this.email.includes('.')) {
-      this.userService.patchUser(this.userId, this.username, this.password, this.email, this.accessLevel).subscribe(msg => {
-        console.log(msg);
-        this.responseMessage = 'A felhasználói adatok sikeresen frissítve!';
-      }, error => {
-        console.log(error);
-        this.responseMessage = error.error.message;
-        if (this.responseMessage.includes('username')) {
-          this.responseMessage = 'A felhasználónévnek egyedinek kell lennie!';
-        } else if (this.responseMessage.includes('email')) {
-          this.responseMessage = 'Az e-mail címnek egyedinek kell lennie!';
-        }
-      });
-    } else {
-      this.responseMessage = "Érvénytelen e-mail cím formátum!";
-    }
+    this.userService.patchUser(this.userId, this.username, this.password, this.email, this.accessLevel).subscribe(msg => {
+      console.log(msg);
+      this.responseMessage = 'A felhasználói adatok sikeresen frissítve!';
+    }, error => {
+      console.log(error);
+      this.responseMessage = error.error.message;
+    });
   }
 
   ngOnInit(): void {

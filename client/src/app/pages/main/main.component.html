@@ -1,6 +1,6 @@
 <app-my-toolbars></app-my-toolbars>
 
-<div class="content" role="main" *ngIf="getRole()=='admin'">
+<div class="content" role="main" *ngIf="getRole() == 'admin'">
 
     <h2>Új játék felvétele:</h2>
     <div class="spacer">
@@ -44,7 +44,7 @@
             <tr>
                 <td class = "table">{{getTitle(game)}}</td>
                 <td class = "table">{{getGenre(game)}}</td>
-                <td class = "table">{{getPrice(game)}} Ft</td>
+                <td class = "table" align="right">{{getPrice(game)}} Ft</td>
                 <td class = "table"><button (click)="getDetails(game)">{{detailsButtonTitle}}</button></td>
                 <td class = "table" *ngIf="getRole() == 'admin'"><button (click)="deleteGame(game)">Törlés</button></td>
             </tr>

@@ -15,6 +15,7 @@ export class GameComponent implements OnInit {
   genre: string;
   sum: string;
   price: number;
+  priceString: string;
   releaseDate: Date;
   responseMessage: string;
 
@@ -24,6 +25,7 @@ export class GameComponent implements OnInit {
     this.genre = '';
     this.sum = '';
     this.price = 0;
+    this.priceString = '0';
     this.releaseDate = new Date();
     this.gameId = '';
     this.responseMessage = '';
@@ -40,7 +42,8 @@ export class GameComponent implements OnInit {
         this.genre = JSON.parse(JSON.stringify(game)).genre;
         this.sum = JSON.parse(JSON.stringify(game)).sum;
         this.price = JSON.parse(JSON.stringify(game)).price;
-        this.releaseDate = JSON.parse(JSON.stringify(game)).releaseDate.substring(0,10);
+        this.priceString = JSON.parse(JSON.stringify(game)).priceString;
+        this.releaseDate = JSON.parse(JSON.stringify(game)).releaseDateString;
       }, error => {
         console.log(error);
         this.responseMessage = error.error.message;

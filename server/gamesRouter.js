@@ -17,6 +17,14 @@ async function getGame(req, res, next) {
     next();
 }
 
+function setErrorMessage(message) {
+    if (message.includes('title')) {
+        return "A játék címének egyedinek kell lennie!"
+    } else {
+        return message;
+    }
+}
+
 gamesRouter.get('/', async (req, res) => {
     try {
         const games = await Game.find();
@@ -35,15 +43,17 @@ gamesRouter.post('/', async (req, res) => {
         title: req.body.title,
         genre: req.body.genre,
         price: req.body.price,
+        priceString: '0',
         sum: req.body.sum,
         releaseDate: req.body.releaseDate,
+        releaseDateString: "0",
     });
 
     try {
         const newGame = await game.save();
         res.status(201).json(newGame);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ message: setErrorMessage(error.message) });
     }
 });
 
@@ -68,7 +78,7 @@ gamesRouter.patch('/:id', getGame, async (req, res) => {
         const updateGame = await res.game.save();
         res.json(updateGame);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ message: setErrorMessage(error.message) });
     }
 });
 

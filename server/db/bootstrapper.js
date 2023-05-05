@@ -59,8 +59,10 @@ async function ensureSportGameExists() {
                 title: "FIFA 23",
                 genre: "sport",
                 price: 18990,
+                priceString: '0',
                 sum: "A népszerű FIFA sorozat 2022/2023-as kiadása.",
                 releaseDate: "2022-09-27",
+                releaseDateString: "0",
             });
             await newGame.save();
             console.log("A sportjáték sikeresen hozzáadva az adatbázishoz.");
@@ -81,8 +83,10 @@ async function ensureRaceGameExists() {
                 title: "F1 22",
                 genre: "autóverseny",
                 price: 15990,
+                priceString: '0',
                 sum: "A népszerű F1 sorozat 2022-es kiadása.",
                 releaseDate: "2022-06-28",
+                releaseDateString: "0",
             });
             await newGame.save();
             console.log("Az autóverseny játék sikeresen hozzáadva az adatbázishoz.");
@@ -103,8 +107,10 @@ async function ensureStrategyGameExists() {
                 title: "Imperium Galactica 2",
                 genre: "stratégia",
                 price: 1990,
+                priceString: '0',
                 sum: "A méltán híres magyar fejlesztésű űrstratégiai játék.",
                 releaseDate: "1999-12-01",
+                releaseDateString: "0",
             });
             await newGame.save();
             console.log("A stratégiai játék sikeresen hozzáadva az adatbázishoz.");

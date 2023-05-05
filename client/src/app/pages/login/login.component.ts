@@ -23,10 +23,10 @@ export class LoginComponent implements OnInit{
 
   login() {
     if (this.username != '' && this.password != '') {
-      this.loginService.login(this.username, this.password).subscribe(msg => {
-        console.log(msg);
-        localStorage.setItem('id', JSON.parse(JSON.stringify(msg))._id);
-        localStorage.setItem('accessLevel', JSON.parse(JSON.stringify(msg)).accessLevel);
+      this.loginService.login(this.username, this.password).subscribe(user => {
+        console.log(user);
+        localStorage.setItem('id', JSON.parse(JSON.stringify(user))._id);
+        localStorage.setItem('accessLevel', JSON.parse(JSON.stringify(user)).accessLevel);
         this.router.navigate(['/main']);
       }, error => {
         console.log(error);

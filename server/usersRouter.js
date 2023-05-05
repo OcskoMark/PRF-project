@@ -39,6 +39,16 @@ router.route('/logout').post((req, res, next) => {
     }
 });
 
+function setErrorMessage(message) {
+    if (message.includes('username')) {
+        return 'A felhasználónévnek egyedinek kell lennie!';
+    } else if (message.includes('email')) {
+        return 'Az e-mail címnek egyedinek kell lennie!';
+    } else {
+        return message;
+    }
+}
+
 router.route('/register').post(async (req, res, next) => {
     const user = new User({
         username: req.body.username,
@@ -52,7 +62,7 @@ router.route('/register').post(async (req, res, next) => {
         const newUser = await user.save();
         res.status(201).json(newUser);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ message: setErrorMessage(error.message) });
     }
 });
 
@@ -96,7 +106,7 @@ router.post('/', async (req, res) => {
         const newUser = await user.save();
         res.status(201).json(newUser);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ message: setErrorMessage(error.message) });
     }
 });
 
@@ -118,7 +128,7 @@ router.patch('/:id', getUser, async (req, res) => {
         const updatedUser = await res.user.save();
         res.json(updatedUser);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ message: setErrorMessage(error.message) });
     }
 });
 
